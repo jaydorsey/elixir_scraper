@@ -2,7 +2,6 @@ defmodule Scraper do
   use Hound.Helpers
 
   def start do
-    # Hound.start_session(browser: "chrome", user_agent: :chrome, driver: {"prefs" => "--window-size:1280,1024"})
     # List of additional args here: http://peter.sh/experiments/chromium-command-line-switches/
     Hound.start_session(
       browser: "chrome",
