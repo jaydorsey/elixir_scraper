@@ -2,15 +2,7 @@ defmodule Scraper do
   use Hound.Helpers
 
   def start(username \\ System.get_env("DOM_USERNAME"), password \\ System.get_env("DOM_PASSWORD")) do
-    Hound.start_session(
-      browser: "chrome",
-      user_agent: :chrome,
-      driver: %{chromeOptions: %{args: [
-        "--incognito",
-        "--window-size=1280,1024",
-        "--window-position=0,0"
-      ]}}
-    )
+    setup_session()
 
     navigate_to "https://www.dom.com/"
 
@@ -47,26 +39,26 @@ defmodule Scraper do
   #   Hound.end_session
   # end
 
-  # def setup_session() do
-  #   if System.get_env("DRIVER") == "chrome" do
-  #     # List of additional args here: http://peter.sh/experiments/chromium-command-line-switches/
-  #     Hound.start_session(
-  #       browser: "chrome",
-  #       user_agent: :chrome,
-  #       driver: %{chromeOptions: %{args: [
-  #         "--incognito",
-  #         "--window-size=1280,1024",
-  #         "--window-position=0,0"
-  #       ]}}
-  #     )
-  #   else
-  #     Hound.start_session(%{"phantomjs.page.settings.userAgent" => "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36"})
-  #     # This is really a PhantomJS setting, because we can explicitly set the size
-  #     # relatively easily for chrome below. This should probably work with both
-  #     # though
-  #     #
-  #     # Look for a way to explicitly set this in the setup above
-  #     Hound.Helpers.Window.current_window_handle() |> Hound.Helpers.Window.maximize_window
-  #   end
-  # end
+  def setup_session() do
+    if System.get_env("DRIVER") == "chrome_driver" do
+      # List of additional args here: http://peter.sh/experiments/chromium-command-line-switches/
+      Hound.start_session(
+        browser: "chrome",
+        user_agent: :chrome,
+        driver: %{chromeOptions: %{args: [
+          "--incognito",
+          "--window-size=1280,1024",
+          "--window-position=0,0"
+        ]}}
+      )
+    else
+      Hound.start_session(%{"phantomjs.page.settings.userAgent" => "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36"})
+      # This is really a PhantomJS setting, because we can explicitly set the size
+      # relatively easily for chrome below. This should probably work with both
+      # though
+      #
+      # Look for a way to explicitly set this in the setup above
+      Hound.Helpers.Window.current_window_handle() |> Hound.Helpers.Window.maximize_window
+    end
+  end
 end
