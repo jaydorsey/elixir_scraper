@@ -26,7 +26,7 @@ From the iex REPL:
 Scraper.start
 
 # Do your stuff in iex here
-# Use reload() to live recompile changes to your module
+# Use recompile() to live recompile changes to your module
 
 Scraper.stop # close browser
 ```
