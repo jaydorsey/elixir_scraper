@@ -16,6 +16,10 @@ export DOM_PASSWORD="password"
 
 mix deps.get # get dependencies
 
+# Start PhantomJS web driver if using PhantomJS. I recommend you use Chrome
+# instead
+phantomjs --wd
+
 # Compile & run the application
 iex -S mix
 ```
